@@ -23,8 +23,15 @@ public class Consultas {
         EntityTransaction transaction = em.getTransaction();
         //comenzamos a crear el contexto de persistencia
         transaction.begin();
-        MuseosEntity m = em.createQuery("from MuseosEntity", MuseosEntity.class).getSingleResult();
+        ObrasEntity obra = em.find(ObrasEntity.class, obraId);
         //a partir de aquí trabajamos sobre el objeto instanciado que representa un registro de la base de datos
+        int obraId, nuevoMuseoId;
+        MuseosEntity nuevoMuseo = em.find(MuseosEntity.class, nuevoMuseoId);
+
+        if (obra != null && nuevoMuseo != null) {
+            obra.setMuseosByIdMuseo(nuevoMuseo);
+            em.persist(obra);
+        }
 
         //al hacer el commit los cambios se pasan a la base de datos
         transaction.commit();
@@ -34,22 +41,26 @@ public class Consultas {
         EntityTransaction transaction = em.getTransaction();
         //comenzamos a crear el contexto de persistencia
         transaction.begin();
-        ObrasEntity o = new ObrasEntity();
-        o.setTitulo("OBRA AUTOR NUEVO");
-        o.setFecha(Date.valueOf("1923-12-07"));
-        o.setIdMuseo(1);
-        o.setIdAutor(5);
+        
+	    String titulo, nombreAutor, nacionalidad;
+	    Date fecha, fechaNacimiento, fechaFallecimiento; 
+	    int idMuseo;
+	
+        AutoresEntity autorNuevo = new AutoresEntity();
+        autorNuevo.setNombre(nombreAutor);
+        autorNuevo.setFechaNacimiento(fechaNacimiento);
+        autorNuevo.setFechaFallecimiento(fechaFallecimiento);
+        autorNuevo.setNacionalidad(nacionalidad);
+        em.persist(autorNuevo);
 
-        AutoresEntity a = new AutoresEntity();
-        a.setNombre("NOMBRE NUEVO AUTOR");
-        a.setFechaNacimiento(Date.valueOf("1899-12-08"));
-        a.setFechaFallecimiento(Date.valueOf("1977-06-03"));
-        a.setNacionalidad("Español");
+        ObrasEntity nuevaObra = new ObrasEntity();
+        nuevaObra.setTitulo(titulo);
+        nuevaObra.setFecha(fecha);
+        nuevaObra.setIdMuseo(idMuseo);
+        nuevaObra.setIdAutor(autorNuevo.getId());
+        nuevaObra.setAutoresByIdAutor(autorNuevo);
 
-        Query queryDep = em.createQuery("from ObrasEntity");
-        ObrasEntity nuevaObra = (ObrasEntity) queryDep.getSingleResult();
-        o.setAutoresByIdAutor(nuevaObra.getAutoresByIdAutor());
-        em.persist(o);
+        em.persist(nuevaObra);
         transaction.commit();
     }
 }
