@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65de7f8d-dbd8-4ecb-813a-4b630391d2f1" name="Changes" comment="creados metodos para listarObras, modificarMuseo e insertarObra">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Consultas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Consultas.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +38,7 @@
     "JPA.DatabaseSchemaImportDialog": "e45aba01-c146-4201-992b-01e2c199736b",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/Users/Alumno_FP/IdeaProjects/EjerciciosFicheros",
@@ -79,7 +80,7 @@
       <workItem from="1700041877770" duration="511000" />
       <workItem from="1700042429949" duration="4450000" />
       <workItem from="1700206463148" duration="74000" />
-      <workItem from="1700206539633" duration="491000" />
+      <workItem from="1700206539633" duration="4027000" />
     </task>
     <task id="LOCAL-00001" summary="creados metodos para listarObras, modificarMuseo e insertarObra">
       <option name="closed" value="true" />
@@ -89,7 +90,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700046803962</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="creados metodos para listarObras, modificarMuseo e insertarObra">
+      <option name="closed" value="true" />
+      <created>1700207055635</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1700207055635</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
