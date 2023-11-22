@@ -32,31 +32,41 @@ public class Consultas {
         	ObrasEntity obra = (ObrasEntity) queryObra.getSingleResult();
 
         	if (obra != null) {
+            		// Mostrar la lista de museos
             		List<MuseosEntity> museos = em.createQuery("from MuseosEntity", MuseosEntity.class).getResultList();
             		for (MuseosEntity museo : museos) {
                 		System.out.println(museo.getId() + ". " + museo.getNombre());
             		}
+			
+            		MuseosEntity museoActual = obra.getMuseosByIdMuseo();
 
-            		int idNuevoMuseo = Leer.pedirEntero("Introduce el ID del nuevo museo: ");
-            		MuseosEntity nuevoMuseo = em.find(MuseosEntity.class, idNuevoMuseo);
+            		// Modificar los datos del museo
+			String nuevoNombre = Leer.pedirCadena("Introduce el nuevo nombre del museo: ");
+			String nuevaDireccion = Leer.pedirCadena("Introduce la nueva dirección del museo: ");
+            		String nuevaCiudad = Leer.pedirCadena("Introduce la nueva ciudad del museo: ");
+            		String nuevoPais = Leer.pedirCadena("Introduce el nuevo país del museo: ");
 
-            		if (nuevoMuseo != null) {
-                		obra.setMuseosByIdMuseo(nuevoMuseo);
-                		em.persist(obra);
-                		System.out.println("El museo de la obra ha sido modificado exitosamente.");
-            		} else {
-                		System.out.println("No se encontró el nuevo museo con el ID proporcionado.");
-            		}
+			// Actualizar los datos del museo actual            			museoActual.setNombre(nuevoNombre);
+            		museoActual.setDireccion(nuevaDireccion);
+            		museoActual.setCiudad(nuevaCiudad);
+            		museoActual.setPais(nuevoPais);
+
+			em.persist(museoActual);
+			System.out.println("Los datos del museo asociado a la obra han sido modificados exitosamente.");
         	} else {
             		System.out.println("No se encontró la obra con el título proporcionado.");
-        	}
-    	} catch (NoResultException e) {
-        	System.out.println("No se encontró la obra con el título proporcionado.");
-    	}
-    	// al hacer el commit, los cambios se pasan a la base de datos
-    	transaction.commit();
-     }
-
+	        }
+	} else {
+    		System.out.println("No se encontró la obra con el título proporcionado.");
+	}
+    } catch (NoResultException e) {
+    	System.out.println("No se encontró la obra con el título proporcionado.");
+    }
+	
+     // al hacer el commit, los cambios se pasan a la base de datos
+      transaction.commit();
+}
+	
     /*public static void modificarMuseo(EntityManager em) {
     	EntityTransaction transaction = em.getTransaction();
     	// comenzamos a crear el contexto de persistencia
