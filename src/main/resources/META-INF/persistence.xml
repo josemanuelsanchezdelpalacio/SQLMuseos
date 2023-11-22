@@ -13,6 +13,7 @@
       <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.password" value="admin"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
     </properties>
   </persistence-unit>
 </persistence>

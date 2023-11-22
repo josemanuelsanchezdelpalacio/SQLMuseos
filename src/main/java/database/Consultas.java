@@ -25,11 +25,19 @@ public class Consultas {
     	// comenzamos a crear el contexto de persistencia
     	transaction.begin();
 
-    	// a partir de aquí trabajamos sobre el objeto instanciado que representa un registro de la base de datos
-    	int idMuseo = Leer.pedirEntero("Introduce un ID para el museo a modificar: ");
+        List<ObrasEntity> obras = em.createQuery("from ObrasEntity",  ObrasEntity.class).getResultList();
+        for (ObrasEntity o : obras){
+            System.out.println(o.getAutoresByIdAutor().getNombre());
+        }
 
-    	// Obtener el museo por su ID
-    	MuseosEntity museo = em.find(MuseosEntity.class, idMuseo);
+        String obraBuscada = Leer.pedirCadena("Introduce una obra para el museo a modificar: ");
+        Query obra = em.createQuery("from ObrasEntity where titulo = ?1").setParameter(1, obraBuscada);
+
+    	// a partir de aquí trabajamos sobre el objeto instanciado que representa un registro de la base de datos
+    	/*String obraBuscar = Leer.pedirCadena("Introduce una obra para el museo a modificar: ");
+
+    	// Obtener el museo por su Obra
+    	MuseosEntity museo = em.find(MuseosEntity.class, obraBuscar);
 
     	if (museo != null) {
         	// Modificar cada atributo del museo
@@ -44,7 +52,7 @@ public class Consultas {
         	query.setParameter("direccion", museo.getDireccion());
         	query.setParameter("ciudad", museo.getCiudad());
         	query.setParameter("pais", museo.getPais());
-        	query.setParameter("idMuseo", idMuseo);
+        	query.setParameter("idMuseo", museo.getId());
 
         	int updatedEntities = query.executeUpdate();
 
@@ -55,7 +63,7 @@ public class Consultas {
         	}
     	} else {
         	System.out.println("No se encontró el museo con el ID proporcionado.");
-    	}
+    	}*/
 
     	// al hacer el commit, los cambios se pasan a la base de datos
     	transaction.commit();
