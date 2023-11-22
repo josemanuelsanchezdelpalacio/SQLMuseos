@@ -25,16 +25,50 @@ public class Consultas {
     	// comenzamos a crear el contexto de persistencia
     	transaction.begin();
 
+    	try {
+        	String obraBuscada = Leer.pedirCadena("Introduce el título de la obra para modificar el museo: ");
+        	Query queryObra = em.createQuery("from ObrasEntity where titulo = ?1").setParameter(1, obraBuscada);
+
+        	ObrasEntity obra = (ObrasEntity) queryObra.getSingleResult();
+
+        	if (obra != null) {
+            		List<MuseosEntity> museos = em.createQuery("from MuseosEntity", MuseosEntity.class).getResultList();
+            		for (MuseosEntity museo : museos) {
+                		System.out.println(museo.getId() + ". " + museo.getNombre());
+            		}
+
+            		int idNuevoMuseo = Leer.pedirEntero("Introduce el ID del nuevo museo: ");
+            		MuseosEntity nuevoMuseo = em.find(MuseosEntity.class, idNuevoMuseo);
+
+            		if (nuevoMuseo != null) {
+                		obra.setMuseosByIdMuseo(nuevoMuseo);
+                		em.persist(obra);
+                		System.out.println("El museo de la obra ha sido modificado exitosamente.");
+            		} else {
+                		System.out.println("No se encontró el nuevo museo con el ID proporcionado.");
+            		}
+        	} else {
+            		System.out.println("No se encontró la obra con el título proporcionado.");
+        	}
+    	} catch (NoResultException e) {
+        	System.out.println("No se encontró la obra con el título proporcionado.");
+    	}
+    	// al hacer el commit, los cambios se pasan a la base de datos
+    	transaction.commit();
+     }
+
+    /*public static void modificarMuseo(EntityManager em) {
+    	EntityTransaction transaction = em.getTransaction();
+    	// comenzamos a crear el contexto de persistencia
+    	transaction.begin();
+
         List<ObrasEntity> obras = em.createQuery("from ObrasEntity",  ObrasEntity.class).getResultList();
         for (ObrasEntity o : obras){
             System.out.println(o.getAutoresByIdAutor().getNombre());
         }
 
-        String obraBuscada = Leer.pedirCadena("Introduce una obra para el museo a modificar: ");
-        Query obra = em.createQuery("from ObrasEntity where titulo = ?1").setParameter(1, obraBuscada);
-
     	// a partir de aquí trabajamos sobre el objeto instanciado que representa un registro de la base de datos
-    	/*String obraBuscar = Leer.pedirCadena("Introduce una obra para el museo a modificar: ");
+    	String obraBuscar = Leer.pedirCadena("Introduce una obra para el museo a modificar: ");
 
     	// Obtener el museo por su Obra
     	MuseosEntity museo = em.find(MuseosEntity.class, obraBuscar);
@@ -67,7 +101,7 @@ public class Consultas {
 
     	// al hacer el commit, los cambios se pasan a la base de datos
     	transaction.commit();
-    }
+    }*/
 
     public static void insertarObra(EntityManager em){
         EntityTransaction transaction = em.getTransaction();
