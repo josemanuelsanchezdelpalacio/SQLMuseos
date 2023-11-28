@@ -5,6 +5,7 @@ import entities.MuseosEntity;
 import entities.ObrasEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import libs.Leer;
 
@@ -14,58 +15,55 @@ import java.util.List;
 public class Consultas {
 
     public static void listarObras(EntityManager em) {
-        List<ObrasEntity> obras = em.createQuery("from ObrasEntity",  ObrasEntity.class).getResultList();
-        for (ObrasEntity o : obras){
+        List<ObrasEntity> obras = em.createQuery("from ObrasEntity", ObrasEntity.class).getResultList();
+        for (ObrasEntity o : obras) {
             System.out.println(o.getTitulo() + ". Autor: " + o.getAutoresByIdAutor().getNombre() + ", Museo: " + o.getMuseosByIdMuseo().getNombre());
         }
     }
 
     public static void modificarMuseo(EntityManager em) {
-    	EntityTransaction transaction = em.getTransaction();
-    	// comenzamos a crear el contexto de persistencia
-    	transaction.begin();
+        EntityTransaction transaction = em.getTransaction();
+        // comenzamos a crear el contexto de persistencia
+        transaction.begin();
 
-    	try {
-        	String obraBuscada = Leer.pedirCadena("Introduce el título de la obra para modificar el museo: ");
-        	Query queryObra = em.createQuery("from ObrasEntity where titulo = ?1").setParameter(1, obraBuscada);
+        try {
+            String obraBuscada = Leer.pedirCadena("Introduce el título de la obra para modificar el museo: ");
+            Query queryObra = em.createQuery("from ObrasEntity where titulo = ?1").setParameter(1, obraBuscada);
 
-        	ObrasEntity obra = (ObrasEntity) queryObra.getSingleResult();
+            ObrasEntity obra = (ObrasEntity) queryObra.getSingleResult();
 
-        	if (obra != null) {
-            		// Mostrar la lista de museos
-            		List<MuseosEntity> museos = em.createQuery("from MuseosEntity", MuseosEntity.class).getResultList();
-            		for (MuseosEntity museo : museos) {
-                		System.out.println(museo.getId() + ". " + museo.getNombre());
-            		}
-			
-            		MuseosEntity museoActual = obra.getMuseosByIdMuseo();
+            if (obra != null) {
+                // Mostrar la lista de museos
+                List<MuseosEntity> museos = em.createQuery("from MuseosEntity", MuseosEntity.class).getResultList();
+                for (MuseosEntity museo : museos) {
+                    System.out.println(museo.getId() + ". " + museo.getNombre());
+                }
 
-            		// Modificar los datos del museo
-			String nuevoNombre = Leer.pedirCadena("Introduce el nuevo nombre del museo: ");
-			String nuevaDireccion = Leer.pedirCadena("Introduce la nueva dirección del museo: ");
-            		String nuevaCiudad = Leer.pedirCadena("Introduce la nueva ciudad del museo: ");
-            		String nuevoPais = Leer.pedirCadena("Introduce el nuevo país del museo: ");
+                MuseosEntity museoActual = obra.getMuseosByIdMuseo();
 
-			// Actualizar los datos del museo actual            			museoActual.setNombre(nuevoNombre);
-            		museoActual.setDireccion(nuevaDireccion);
-            		museoActual.setCiudad(nuevaCiudad);
-            		museoActual.setPais(nuevoPais);
+                // Modificar los datos del museo
+                String nuevoNombre = Leer.pedirCadena("Introduce el nuevo nombre del museo: ");
+                String nuevaDireccion = Leer.pedirCadena("Introduce la nueva dirección del museo: ");
+                String nuevaCiudad = Leer.pedirCadena("Introduce la nueva ciudad del museo: ");
+                String nuevoPais = Leer.pedirCadena("Introduce el nuevo país del museo: ");
 
-			em.persist(museoActual);
-			System.out.println("Los datos del museo asociado a la obra han sido modificados exitosamente.");
-        	} else {
-            		System.out.println("No se encontró la obra con el título proporcionado.");
-	        }
-	} else {
-    		System.out.println("No se encontró la obra con el título proporcionado.");
-	}
-    } catch (NoResultException e) {
-    	System.out.println("No se encontró la obra con el título proporcionado.");
+                // Actualizar los datos del museo actual            			museoActual.setNombre(nuevoNombre);
+                museoActual.setDireccion(nuevaDireccion);
+                museoActual.setCiudad(nuevaCiudad);
+                museoActual.setPais(nuevoPais);
+
+                em.persist(museoActual);
+                System.out.println("Los datos del museo asociado a la obra han sido modificados exitosamente.");
+            } else {
+                System.out.println("No se encontró la obra con el título proporcionado.");
+            }
+        } catch (NoResultException e) {
+            System.out.println("No se encontró la obra con el título proporcionado.");
+        }
+
+        // al hacer el commit, los cambios se pasan a la base de datos
+        transaction.commit();
     }
-	
-     // al hacer el commit, los cambios se pasan a la base de datos
-      transaction.commit();
-}
 	
     /*public static void modificarMuseo(EntityManager em) {
     	EntityTransaction transaction = em.getTransaction();
@@ -107,17 +105,17 @@ public class Consultas {
         	}
     	} else {
         	System.out.println("No se encontró el museo con el ID proporcionado.");
-    	}*/
+    	}
 
-    	// al hacer el commit, los cambios se pasan a la base de datos
+    // al hacer el commit, los cambios se pasan a la base de datos
     	transaction.commit();
-    }*/
+}*/
 
-    public static void insertarObra(EntityManager em){
+    public static void insertarObra(EntityManager em) {
         EntityTransaction transaction = em.getTransaction();
         //comenzamos a crear el contexto de persistencia
         transaction.begin();
-	
+
         AutoresEntity autorNuevo = new AutoresEntity();
         autorNuevo.setNombre("nombreAutor");
         autorNuevo.setFechaNacimiento(Date.valueOf("1973-01-01"));

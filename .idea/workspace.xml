@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65de7f8d-dbd8-4ecb-813a-4b630391d2f1" name="Changes" comment="creados metodos para listarObras, modificarMuseo e insertarObra">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/database/Consultas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Consultas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,6 +84,7 @@
       <workItem from="1700556489604" duration="1751000" />
       <workItem from="1700651939915" duration="840000" />
       <workItem from="1700654205145" duration="1025000" />
+      <workItem from="1701160340115" duration="68000" />
     </task>
     <task id="LOCAL-00001" summary="creados metodos para listarObras, modificarMuseo e insertarObra">
       <option name="closed" value="true" />
