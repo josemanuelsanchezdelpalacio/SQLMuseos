@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="IU-232.10072.27">
+    <data-source name="museos@localhost" uuid="b6cce05a-1700-4426-afd7-4c2b09758289">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <schema-mapping />
+    </data-source>
+  </component>
+</project>
