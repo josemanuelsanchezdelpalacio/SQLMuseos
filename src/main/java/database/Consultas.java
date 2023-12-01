@@ -47,7 +47,8 @@ public class Consultas {
                 String nuevaCiudad = Leer.pedirCadena("Introduce la nueva ciudad del museo: ");
                 String nuevoPais = Leer.pedirCadena("Introduce el nuevo país del museo: ");
 
-                // Actualizar los datos del museo actual            			museoActual.setNombre(nuevoNombre);
+                // Actualizar los datos del museo actual
+                museoActual.setNombre(nuevoNombre);
                 museoActual.setDireccion(nuevaDireccion);
                 museoActual.setCiudad(nuevaCiudad);
                 museoActual.setPais(nuevoPais);
